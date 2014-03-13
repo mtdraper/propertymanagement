@@ -40,6 +40,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    
+    params[:user][:role_ids] ||= []
+    
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to root_url, notice: 'Profile Updated!' }
@@ -69,6 +72,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :crypted_password, :password_confirmation)
+      params.require(:user).permit(:username, :email, :password, :crypted_password, :password_confirmation, {:role_ids => [] })
     end
 end
